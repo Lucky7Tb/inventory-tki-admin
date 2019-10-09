@@ -26,3 +26,21 @@
         </table>
     </div>
 @endsection
+
+
+@push('scripts')
+    <script>
+        $('document').ready(function () {
+            $('#room-table').DataTable({
+                processing: true,
+                serverside: true,
+                ajax: "{{route('room.json')}}",
+                columns: [
+                    {data:"room_name", name:"room_name"},
+                    {data:"room_description", name:"room_description"},
+                    {data:"aksi", name:"aksi", orderable: false, searchable: false},
+                ]
+            }); 
+        });
+    </script>
+@endpush

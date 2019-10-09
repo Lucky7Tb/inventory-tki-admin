@@ -9,7 +9,7 @@
         <form action="{{route('student.delete')}}" method="post">
             @csrf
             @method('delete')
-            <button onclick="return confirm('Yakin ingin mengahapusnya?')" type="submit" class="btn btn-rounded social-icon-btn btn-primary"><i class="mdi md-delete-outline"></i></button>
+            <button onclick="return confirm('Yakin ingin mengahapusnya?')" type="submit" class="btn btn-rounded social-icon-btn btn-primary"><i class="mdi mdi-delete-outline"></i></button>
             <input type="hidden" name="student_id" value="{{$student->student_id}}">
         </form>
     </div>
@@ -97,7 +97,7 @@
             </select>
         </div>
         <button type="submit" class="btn btn-primary btn-flat">Save</button>
-        <a href="{{route('student')}}" class="btn btn-danger btn-flat">Cancel</a>
+        <a href="{{route('student')}}" class="btn btn-outline-dark btn-flat">Cancel</a>
     </form>
 </div>
 @endsection

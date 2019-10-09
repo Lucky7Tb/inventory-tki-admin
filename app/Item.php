@@ -17,4 +17,15 @@ class Item extends Model
             $model->item_id = Helper::randString();
         });
     }
+
+    public function room()
+    {
+        return $this->belongsTo('App\Room', 'room_id', 'room_id');
+    }
+
+    public function itemcategory()
+    {
+        return $this->belongsTo('App\ItemCategory', 'item_category_id', 'item_category_id');
+    }
+   
 }

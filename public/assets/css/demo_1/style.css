@@ -1,3 +1,15 @@
+.preloader {
+	position: fixed;
+	background-color: #fff;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-image: url("../../images/preloader.gif");
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+}
+
+
 .bg-inverse-primary {
   background: rgba(105, 111, 251, 0.2); }
 

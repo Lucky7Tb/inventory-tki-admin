@@ -5,20 +5,20 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}"><meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="{{asset('assets/vendors/iconfonts/mdi/css/materialdesignicons.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/shared/style.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/demo_1/style.css')}}">
-    <link rel="shortcut icon" href="{{asset('assets/images/LOGO.png')}}" />
+    <link rel="shortcut icon" href="{{asset('assets/images/coba1.png')}}" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.20/datatables.min.css"/>
   </head>
   <body class="header-fixed">
+  <div class="preloader" id="preloader"></div>
     <nav class="t-header">
       <div class="t-header-brand-wrapper">
         <a href="{{url('/')}}">
-          <img class="logo mr-4" src="{{asset('assets/images/logo.svg')}}" alt="Logo">
-          <img class="logo-mini" src="{{asset('assets/images/logo.svg')}}" alt="Logo">
+          <img class="logo mr-4" src="{{asset('assets/images/coba1.png')}}" style="width:90px" alt="Logo">
+          <img class="logo-mini" src="{{asset('assets/images/coba1.png')}}"  style="width:90px" alt="Logo">
         </a>
       </div>
       <div class="t-header-content-wrapper">
@@ -78,7 +78,7 @@
       <div class="sidebar">
         <div class="user-profile">
           <div class="display-avatar animated-avatar">
-            <img class="profile-img img-lg rounded-circle" src="../assets/images/profile/male/image_1.png" alt="profile image">
+            <img class="profile-img img-lg rounded-circle" src="{{asset('assets/images/profile/male/image_1.png')}}" alt="profile image">
           </div>
           <div class="info-wrapper">
             <p class="user-name">Allen Clerk</p>
@@ -99,7 +99,7 @@
             </a>
             <ul class="collapse navigation-submenu" id="sample-pages">
               <li>
-                  <a href="#">Barang</a>
+                  <a href="{{route('item')}}">Barang</a>
               </li>
               <li>
                 <a href="{{route('item_category')}}">Kategori barang</a>
@@ -151,34 +151,13 @@
     <script src="{{asset('assets/js/charts/chartjs.addon.js')}}"></script>
     <script src="{{asset('assets/js/template.js')}}"></script>
     <script src="{{asset('assets/js/dashboard.js')}}"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.20/datatables.min.js"></script>
-    @stack('scripts')
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.20/datatables.min.js"></script>\
     <script>
-      $('document').ready(function () {
-        $('#room-table').DataTable({
-              processing: true,
-              serverside: true,
-              ajax: "{{route('room.json')}}",
-              columns: [
-                  {data:"room_name", name:"room_name"},
-                  {data:"room_description", name:"room_description"},
-                  {data:"aksi", name:"aksi", orderable: false, searchable: false},
-              ]
-          });
-
-          $('#student-table').DataTable({
-              processing: true,
-              serverside: true,
-              ajax: "{{route('student.json')}}",
-              columns: [
-                  {data:"student_name", name:"student_name"},
-                  {data:"student_nis", name:"student_nis"},
-                  {data:"student_class", name:"student_class"},
-                  {data:"aksi", name:"aksi", orderable: false, searchable: false},
-              ]
-          });
- 
+      const loading = document.getElementById("preloader");
+      window.addEventListener("load", function () {
+        loading.style.display = "none";
       });
     </script>
+    @stack('scripts')
   </body>
 </html>

@@ -30,7 +30,7 @@
             @enderror
         </div>
         <button type="submit" class="btn btn-primary btn-flat">Save</button>
-        <a href="{{route('item_category')}}" class="btn btn-danger btn-flat">Cancel</a>
+        <a href="{{route('item_category')}}" class="btn btn-outline-dark btn-flat">Cancel</a>
     </form>
 </div>
 @endsection

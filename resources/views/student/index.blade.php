@@ -55,3 +55,22 @@
         </table>
 </div>
 @endsection
+
+@push('scripts')
+    <script>
+        $('document').ready(function () {
+            $('#student-table').DataTable({
+                processing: true,
+                serverside: true,
+                ajax: "{{route('student.json')}}",
+                columns: [
+                    {data:"student_name", name:"student_name"},
+                    {data:"student_nis", name:"student_nis"},
+                    {data:"student_class", name:"student_class"},
+                    {data:"aksi", name:"aksi", orderable: false, searchable: false},
+                ]
+            });
+        });
+    </script>
+@endpush
+

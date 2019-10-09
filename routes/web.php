@@ -20,6 +20,14 @@ Route::post('item_category', 'ItemCategoryController@store')->name('item_categor
 Route::delete('item_category', 'ItemCategoryController@delete')->name('item_category.delete');
 Route::put('item_category/update', 'ItemCategoryController@update')->name('item_category.update');
 
+Route::get('item', 'ItemController@index')->name('item');
+Route::get('item/create', 'ItemController@create')->name('item.create');
+Route::get('item/json', 'ItemController@json')->name('item.json');
+Route::get('item/edit/{item}', 'ItemController@edit')->name('item.edit');
+Route::post('item', 'ItemController@store')->name('item.store');
+Route::delete('item', 'ItemController@delete')->name('item.delete');
+Route::put('item/update', 'ItemController@update')->name('item.update');
+
 Route::get('student', 'StudentController@index')->name('student');
 Route::get('student/create', 'StudentController@create')->name('student.create');
 Route::get('student/json', 'StudentController@json')->name('student.json');
@@ -28,3 +36,5 @@ Route::post('student', 'StudentController@store')->name('student.store');
 Route::post('student/excel', 'StudentController@excel')->name('student.excel');
 Route::delete('student', 'StudentController@delete')->name('student.delete');
 Route::put('student/update', 'StudentController@update')->name('student.update');
+
+

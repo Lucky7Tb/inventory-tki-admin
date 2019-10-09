@@ -13,13 +13,6 @@
 </head>
 <body>
     <div class="authentication-theme auth-style_1">
-      <!-- <div class="row">
-        <div class="col-12 logo-section">
-          <a href="#" class="logo">
-            <img src="{{asset('assets/images/logo.svg')}}" alt="logo" />
-          </a>
-        </div>
-      </div> -->
       <div class="row">
         <div class="col-lg-5 col-md-7 col-sm-9 col-11 mx-auto">
           <div class="grid">
