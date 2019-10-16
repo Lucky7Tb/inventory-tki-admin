@@ -45,4 +45,10 @@ Route::get('borrowing/edit/{borrowing}', 'BorrowingController@edit')->name('borr
 Route::put('borrowing', 'BorrowingController@update')->name('borrowing.update');
 Route::delete('borrowing', 'BorrowingController@delete')->name('borrowing.delete');
 
+Route::get('returning', 'ReturningController@index')->name('returning');
+Route::get('returning/json', 'ReturningController@json')->name('returning.json');
+Route::get('returning/edit/{borrowing}', 'ReturningController@edit')->name('returning.edit');
+Route::put('returning', 'ReturningController@update')->name('returning.update');
+
+
 
