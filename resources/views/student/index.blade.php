@@ -42,11 +42,13 @@
 		</div>
  
         <table class="table table-bordered table-hover text-center" id="student-table">
+            <div class="button"></div>
             <thead>
                 <tr>
                     <th>Nama siswa</th>
                     <th>Nis siswa</th>
                     <th>Kelas siswa</th>
+                    <th>Password</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -59,16 +61,18 @@
 @push('scripts')
     <script>
         $('document').ready(function () {
-            $('#student-table').DataTable({
+            let table = $('#student-table').DataTable({
                 processing: true,
                 serverside: true,
+                responsive: true,
                 ajax: "{{route('student.json')}}",
                 columns: [
                     {data:"student_name", name:"student_name"},
                     {data:"student_nis", name:"student_nis"},
                     {data:"student_class", name:"student_class"},
+                    {data:"student_password", name:"student_password"},
                     {data:"aksi", name:"aksi", orderable: false, searchable: false},
-                ]
+                ],
             });
         });
     </script>

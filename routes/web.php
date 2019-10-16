@@ -37,4 +37,12 @@ Route::post('student/excel', 'StudentController@excel')->name('student.excel');
 Route::delete('student', 'StudentController@delete')->name('student.delete');
 Route::put('student/update', 'StudentController@update')->name('student.update');
 
+Route::get('borrowing', 'BorrowingController@index')->name('borrowing');
+Route::get('borrowing/create', 'BorrowingController@create')->name('borrowing.create');
+Route::get('borrowing/json', 'BorrowingController@json')->name('borrowing.json');
+Route::post('borrowing', 'BorrowingController@store')->name('borrowing.store');
+Route::get('borrowing/edit/{borrowing}', 'BorrowingController@edit')->name('borrowing.edit');
+Route::put('borrowing', 'BorrowingController@update')->name('borrowing.update');
+Route::delete('borrowing', 'BorrowingController@delete')->name('borrowing.delete');
+
 

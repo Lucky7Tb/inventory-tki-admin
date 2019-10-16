@@ -19,4 +19,8 @@ class Student extends Model
             $model->student_password = Helper::randPassword();
         });
     }
+
+    // public function borrowing(){
+    //     return $this->hasMany('App\Borrowing', 'student_id', 'student_id');
+    // }
 }

@@ -25,7 +25,7 @@ class ItemCategoryController extends Controller
     public function store(Request $request){
         $validatedData = $request->validate([
             'item_category_name' => 'required|string|max:50',
-            'item_category_description' => 'required|string|max:100',
+            'item_category_description' => 'string|max:100',
         ]);
         $dataItemCategory = new ItemCategory;
         $dataItemCategory->item_category_name = $request->item_category_name;
@@ -41,7 +41,7 @@ class ItemCategoryController extends Controller
     public function update(Request $request){
         $validatedData = $request->validate([
             'item_category_name' => 'required|string|max:50',
-            'item_category_description' => 'required|string|max:100',
+            'item_category_description' => 'string|max:100',
         ]);
         $dataItemCategory = ItemCategory::find($request->item_category_id);
         $dataItemCategory->item_category_name = $request->item_category_name;

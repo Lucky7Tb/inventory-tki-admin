@@ -12,14 +12,15 @@
 
 </head>
 <body>
-    <div class="authentication-theme auth-style_1">
+    <div class="authentication-theme auth-style_1" style="margin-top:-100px">
+    <img src="{{asset('assets/images/LOGO.png')}}" alt="Logo" width="350" class="d-block mx-auto">
       <div class="row">
         <div class="col-lg-5 col-md-7 col-sm-9 col-11 mx-auto">
           <div class="grid">
             <div class="grid-body">
               <div class="row">
                 <div class="col-lg-7 col-md-8 col-sm-9 col-12 mx-auto form-wrapper">
-                  <form method="POST" action="{{ route('login') }}">
+                  <form method="POST" action="{{ route('login') }}" style="margin-top:-50px">
                     @csrf
                         <div class="form-group">
                             <label for="email">{{ __('E-Mail Address') }}</label>
@@ -59,7 +60,7 @@
 
                         <div class="form-group">
                             <div>
-                                <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">
+                                <button type="submit" class="btn btn-primary btn-block btn-flat m-b-30 m-t-30">
                                     {{ __('Login') }}
                                 </button>
 

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Room Management')
+@section('title', 'Item Category Management')
 
 @section('content')
 <div class="container mt-2">
@@ -35,6 +35,7 @@
           $('#item_category-table').DataTable({
               processing: true,
               serverside: true,
+              responsive: true,
               ajax: "{{route('item_category.json')}}",
               columns: [
                   {data:"item_category_name", name:"item_category_name"},

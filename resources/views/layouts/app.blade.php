@@ -9,16 +9,16 @@
     <link rel="stylesheet" href="{{asset('assets/vendors/iconfonts/mdi/css/materialdesignicons.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/shared/style.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/demo_1/style.css')}}">
-    <link rel="shortcut icon" href="{{asset('assets/images/coba1.png')}}" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.20/datatables.min.css"/>
+    <link rel="shortcut icon" href="{{asset('assets/images/web.png')}}" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/b-1.6.0/b-html5-1.6.0/r-2.2.3/datatables.min.css"/>
   </head>
   <body class="header-fixed">
   <div class="preloader" id="preloader"></div>
     <nav class="t-header">
       <div class="t-header-brand-wrapper">
         <a href="{{url('/')}}">
-          <img class="logo mr-4" src="{{asset('assets/images/coba1.png')}}" style="width:90px" alt="Logo">
-          <img class="logo-mini" src="{{asset('assets/images/coba1.png')}}"  style="width:90px" alt="Logo">
+          <img class="logo mr-4" src="{{asset('assets/images/web.png')}}" style="width:90px" alt="Logo">
+          <img class="logo-mini" src="{{asset('assets/images/web.png')}}"  style="width:90px" alt="Logo">
         </a>
       </div>
       <div class="t-header-content-wrapper">
@@ -81,7 +81,7 @@
             <img class="profile-img img-lg rounded-circle" src="{{asset('assets/images/profile/male/image_1.png')}}" alt="profile image">
           </div>
           <div class="info-wrapper">
-            <p class="user-name">Allen Clerk</p>
+            <p class="user-name">{{Auth::user()->name}}</p>
           </div>
         </div>
         <ul class="navigation-menu">
@@ -119,7 +119,7 @@
             </a>
             <ul class="collapse navigation-submenu" id="ui-elements">
               <li>
-                <a href="#">Peminjaman</a>
+                <a href="{{route('borrowing')}}">Peminjaman</a>
               </li>
               <li>
                 <a href="#">Pengembalian</a>
@@ -151,7 +151,7 @@
     <script src="{{asset('assets/js/charts/chartjs.addon.js')}}"></script>
     <script src="{{asset('assets/js/template.js')}}"></script>
     <script src="{{asset('assets/js/dashboard.js')}}"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.20/datatables.min.js"></script>\
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/b-1.6.0/b-html5-1.6.0/r-2.2.3/datatables.min.js"></script>
     <script>
       const loading = document.getElementById("preloader");
       window.addEventListener("load", function () {

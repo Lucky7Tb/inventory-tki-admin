@@ -18,7 +18,7 @@ class ItemCategory extends Model
         });
     }
 
-    public function item(){
-        return $this->hasOne('App\Item', 'item_category_id', 'item_category_id');
-    }
+    // public function item(){
+    //     return $this->hasOne('App\Item', 'item_category_id', 'item_category_id');
+    // }
 }
