@@ -20,7 +20,4 @@ class Student extends Model
         });
     }
 
-    // public function borrowing(){
-    //     return $this->hasMany('App\Borrowing', 'student_id', 'student_id');
-    // }
 }

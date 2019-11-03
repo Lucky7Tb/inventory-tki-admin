@@ -33,7 +33,7 @@
                     <option value="Belum Diambil">Belum Diambil</option>
                 @elseif($borrowing->borrowing_status == "Belum Diambil")
                     <option value="Dipinjam">Dipinjam</option>
-                    <option value="Belum Diambil">Belum Diambil</option>
+                    <option selected value="Belum Diambil">Belum Diambil</option>
                 @endif
             </select>
         </div>

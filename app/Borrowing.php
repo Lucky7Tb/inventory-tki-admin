@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Helpers\Helper;
 use App\Item;
 use App\Student;
+
 class Borrowing extends Model
 {
     protected $table = "borrowing";
@@ -24,9 +25,10 @@ class Borrowing extends Model
         });
     }
 
-    protected function getItemIdAttribute(){
+    protected function getItemIdAttribute()
+    {
         $dataItem = Item::where('item_id', $this->attributes['item_id'])->first();
-        if($dataItem){
+        if ($dataItem) {
             $data['item_id'] = $dataItem->item_id;
             $data['item_name'] = $dataItem->item_name;
             return $data;
@@ -34,13 +36,14 @@ class Borrowing extends Model
         return false;
     }
 
-    protected function getStudentIdAttribute(){
+    protected function getStudentIdAttribute()
+    {
         $dataStudent = Student::where('student_id', $this->attributes['student_id'])->first();
-        if($dataStudent){
+        if ($dataStudent) {
             $data['student_name'] = $dataStudent->student_name;
             $data['student_class'] = $dataStudent->student_class;
+            $data['student_id'] = $dataStudent->student_id;
             return $data;
-   
         }
         return false;
     }

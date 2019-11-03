@@ -7,26 +7,32 @@ use App\Borrowing;
 use App\Item;
 use App\Student;
 use DataTables;
+use OneSignal;
+
 class BorrowingController extends Controller
 {
-    public function json(){
+    public function json()
+    {
         $dataBorrowing = Borrowing::select('borrowing.*');
-        return DataTables::eloquent($dataBorrowing)->addColumn('aksi',function($data){
-            return "<a href='/borrowing/edit/".$data->borrowing_id."' class='badge badge-primary'>Edit</a>";
+        return DataTables::eloquent($dataBorrowing)->addColumn('aksi', function ($data) {
+            return "<a href='/borrowing/edit/" . $data->borrowing_id . "' class='badge badge-primary'>Edit</a>";
         })->rawColumns(['aksi'])->toJson();
     }
 
-    public function index(){
+    public function index()
+    {
         return view('borrowing.index');
     }
 
-    public function create(){
-        $dataItem= Item::select('item_id', 'item_name')->where('item_conditions', 'Baik')->where('item_ammount',">",0)->get();
+    public function create()
+    {
+        $dataItem = Item::select('item_id', 'item_name')->where('item_conditions', 'Baik')->where('item_ammount', ">", 0)->get();
         $dataStudent = Student::select('student_id', 'student_name')->get();
         return view('borrowing.create', compact('dataItem', 'dataStudent'));
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $validatedData = $request->validate([
             'item_ammount' => 'required|numeric|max:100',
         ]);
@@ -34,32 +40,45 @@ class BorrowingController extends Controller
         $dataBorrowing->student_id = $request->student_id;
         $dataBorrowing->item_id = $request->item_id;
         $dataBorrowing->item_ammount = $request->item_ammount;
-        $dataBorrowing->borrowing_date = \Carbon\Carbon::now();     
-        $dataBorrowing->borrowing_date_return = $request->borrowing_date_return; 
+        $dataBorrowing->borrowing_date = \Carbon\Carbon::now();
+        $dataBorrowing->borrowing_date_return = $request->borrowing_date_return;
         $dataBorrowing->save();
-        
+
         $dataItem = Item::find($request->item_id);
         $dataItem->item_ammount = $dataItem->item_ammount - $request->item_ammount;
         $dataItem->save();
         return redirect()->route('borrowing.create')->with('success', 'Data berhasil dimasukan');
     }
 
-    public function edit(Borrowing $borrowing){
-        $dataItem= Item::select('item_id', 'item_name')->where('item_conditions', 'Baik')->where('item_ammount',">",0)->get();
+    public function edit(Borrowing $borrowing)
+    {
+        $dataItem = Item::select('item_id', 'item_name')->where('item_conditions', 'Baik')->where('item_ammount', ">", 0)->get();
         $dataStudent = Student::select('student_id', 'student_name')->get();
-        return view('borrowing.detail', compact('borrowing','dataItem','dataStudent'));
+        return view('borrowing.detail', compact('borrowing', 'dataItem', 'dataStudent'));
     }
 
-    public function update(Request $request){
+    public function update(Request $request)
+    {
         $dataBorrowing = Borrowing::find($request->borrowing_id);
         $dataBorrowing->status = $request->status;
         $dataBorrowing->borrowing_status = $request->borrowing_status;
         $dataBorrowing->save();
+        $dataStudent = Student::find($dataBorrowing->student_id['student_id'])->first();
+        $userId = $dataStudent['player_id'];
+        OneSignal::sendNotificationToUser(
+            "Barang sudah siap diambil $dataBorrowing->borrowing_id",
+            $userId,
+            $url = null,
+            $data = null,
+            $buttons = null,
+            $schedule = null
+        );
         return redirect()->route('borrowing')->with('success', 'Data berhasil diupdate');
     }
 
 
-    public function delete(Request $request){
+    public function delete(Request $request)
+    {
         $dataBorrowing = Borrowing::find($request->borrowing_id);
         $dataItem = Item::find($dataBorrowing->item_id['item_id']);
         $dataItem->item_ammount = $dataItem->item_ammount + $dataBorrowing->item_ammount;
@@ -67,5 +86,4 @@ class BorrowingController extends Controller
         $dataBorrowing->delete();
         return redirect()->route('borrowing')->with('success', 'Data berhasil didelete');
     }
-
 }
