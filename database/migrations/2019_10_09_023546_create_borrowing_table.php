@@ -20,8 +20,8 @@ class CreateBorrowingTable extends Migration
             $table->integer('item_ammount')->unsigned();
             $table->date('borrowing_date');
             $table->date('borrowing_date_return');
-            $table->enum('borrowing_status', ['1','0'])->default('0')->nullable();
-            $table->enum('status', ['1', '0'])->default('0')->nullable();
+            $table->enum('borrowing_status', ['Dipinjam','Dikembalikan', 'Belum Diambil'])->default('Dipinjam')->nullable();
+            $table->enum('status', ['Confirm', 'Not Confirm'])->default('Confirm')->nullable();
             $table->timestamps();
         });
     }
