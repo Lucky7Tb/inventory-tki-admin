@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Student;
 use App\Imports\SiswaImport;
+use App\Exports\SiswaExport;
 use Maatwebsite\Excel\Facades\Excel;
 use DataTables;
 class StudentController extends Controller
@@ -63,21 +64,27 @@ class StudentController extends Controller
         return redirect()->route('student')->with('success', 'Data berhasil didelete');
     }
 
-    public function excel(Request $request) 
+    public function importexcel(Request $request) 
 	{
-		// validasi
 		$this->validate($request, [
-			'file' => 'required|mimes:csv,xls,xlsx'
+			'file' => 'required|mimes:xls,xlsx'
 		]);
  
-		$file = $request->file('file');
+        $file = $request->file('file');
  
 		$nama_file = rand().$file->getClientOriginalName();
  
 		$file->move('file_siswa',$nama_file);
  
-		Excel::import(new SiswaImport, public_path('/file_siswa/'.$nama_file));
- 
+        Excel::import(new SiswaImport, public_path('/file_siswa/'.$nama_file));
+
+        unlink(public_path('/file_siswa/'.$nama_file));
+
 		return redirect()->route('student')->with('success', 'Data berhasil dimasukan');
-	}
+    }
+    
+    public function exportexcel(Request $request){
+        return (new SiswaExport($request->student_class))->download(\Carbon\Carbon::now().':Student.xls');
+    }
+
 }

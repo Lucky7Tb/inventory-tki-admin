@@ -35,13 +35,13 @@ class ReturningController extends Controller
     }
 
 
-    public function delete(Request $request){
-        $dataBorrowing = Borrowing::find($request->borrowing_id);
-        $dataItem = Item::find($dataBorrowing->item_id['item_id']);
-        $dataItem->item_ammount = $dataItem->item_ammount + $dataBorrowing->item_ammount;
-        $dataItem->save();
-        $dataBorrowing->delete();
-        return redirect()->route('returning')->with('success', 'Data berhasil didelete');
-    }
+    // public function delete(Request $request){
+    //     $dataBorrowing = Borrowing::find($request->borrowing_id);
+    //     $dataItem = Item::find($dataBorrowing->item_id['item_id']);
+    //     $dataItem->item_ammount = $dataItem->item_ammount + $dataBorrowing->item_ammount;
+    //     $dataItem->save();
+    //     $dataBorrowing->delete();
+    //     return redirect()->route('returning')->with('success', 'Data berhasil didelete');
+    // }
 
 }

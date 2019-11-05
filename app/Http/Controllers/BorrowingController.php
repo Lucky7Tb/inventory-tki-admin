@@ -47,6 +47,7 @@ class BorrowingController extends Controller
         $dataItem = Item::find($request->item_id);
         $dataItem->item_ammount = $dataItem->item_ammount - $request->item_ammount;
         $dataItem->save();
+        
         return redirect()->route('borrowing.create')->with('success', 'Data berhasil dimasukan');
     }
 
@@ -60,19 +61,29 @@ class BorrowingController extends Controller
     public function update(Request $request)
     {
         $dataBorrowing = Borrowing::find($request->borrowing_id);
-        $dataBorrowing->status = $request->status;
-        $dataBorrowing->borrowing_status = $request->borrowing_status;
-        $dataBorrowing->save();
-        $dataStudent = Student::find($dataBorrowing->student_id['student_id'])->first();
-        $userId = $dataStudent['player_id'];
-        OneSignal::sendNotificationToUser(
-            "Barang sudah siap diambil $dataBorrowing->borrowing_id",
-            $userId,
-            $url = null,
-            $data = null,
-            $buttons = null,
-            $schedule = null
-        );
+        if($request->status == "Confirm"  && $request->borrowing_status == "Harap konfirmasi terlebih dahulu"){
+            $dataBorrowing->status = $request->status;
+            $dataBorrowing->borrowing_status = "Belum Diambil";
+            $dataBorrowing->save();
+
+            $dataItem = Item::find($dataBorrowing->item_id['item_id']);
+            $dataItem->item_ammount = $dataItem->item_ammount - $dataBorrowing->item_ammount;
+            $dataItem->save();
+
+            $dataStudent = Student::find($dataBorrowing->student_id['student_id'])->first();
+            $userId = $dataStudent['player_id'];
+            OneSignal::sendNotificationToUser(
+                "Barang sudah siap diambil id: $dataBorrowing->borrowing_id",
+                $userId,
+                $url = null,
+                $data = null,
+                $buttons = null,
+                $schedule = null
+            );
+        }else if($request->status == "Confirm"  && $request->borrowing_status == "Dipinjam"){
+            $dataBorrowing->borrowing_status = $request->borrowing_status;
+            $dataBorrowing->save();
+        }
         return redirect()->route('borrowing')->with('success', 'Data berhasil diupdate');
     }
 
@@ -80,10 +91,14 @@ class BorrowingController extends Controller
     public function delete(Request $request)
     {
         $dataBorrowing = Borrowing::find($request->borrowing_id);
-        $dataItem = Item::find($dataBorrowing->item_id['item_id']);
-        $dataItem->item_ammount = $dataItem->item_ammount + $dataBorrowing->item_ammount;
-        $dataItem->save();
-        $dataBorrowing->delete();
+        if($dataBorrowing->borrowing_status == "Belum Diambil"){
+            $dataItem = Item::find($dataBorrowing->item_id['item_id']);
+            $dataItem->item_ammount = $dataItem->item_ammount + $dataBorrowing->item_ammount;
+            $dataItem->save();
+            $dataBorrowing->delete();
+        }else{
+            $dataBorrowing->delete();
+        }
         return redirect()->route('borrowing')->with('success', 'Data berhasil didelete');
     }
 }

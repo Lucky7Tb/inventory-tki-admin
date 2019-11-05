@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Events\Notification;
 use App\Borrowing;
 use App\Item;
 class BorrowingController extends Controller
@@ -19,11 +20,8 @@ class BorrowingController extends Controller
             $dataBorrowing->borrowing_date = \Carbon\Carbon::now();     
             $dataBorrowing->borrowing_date_return = \Carbon\Carbon::now();
             $dataBorrowing->save();
-        
-            $dataItem = Item::find($request->item_id);
-            $dataItem->item_ammount = $dataItem->item_ammount - (int)$request->item_ammount;
-            $dataItem->save();
-             return response()->json([
+            event(new Notification("Hallo"));
+            return response()->json([
                 "message" => "Sukses",
                 "serve" => []
             ], 200);

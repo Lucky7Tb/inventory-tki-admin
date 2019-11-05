@@ -20,6 +20,7 @@
                     <th>Peminjam</th>
                     <th>Kelas</th>
                     <th>Barang</th>
+                    <th>Jumlah</th>
                     <th>Tanggal pengembalian</th>
                     <th>Status peminjaman</th>
                     <th>Konfirmasi</th>
@@ -44,6 +45,7 @@
                     {data:"student_id.student_name", name:"student_id.student_name"},
                     {data:"student_id.student_class", name:"student_id.student_class"},
                     {data:"item_id.item_name", name:"item_id.item_name"},
+                    {data:"item_ammount", name:"item_ammount"},
                     {data:"borrowing_date_return", name:"borrowing_date_return"},
                     {data:"borrowing_status", name:"borrowing_status"},
                     {data:"status", name:"status"},

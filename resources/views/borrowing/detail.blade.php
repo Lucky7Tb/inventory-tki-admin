@@ -9,7 +9,11 @@
         <form action="{{route('borrowing.delete')}}" method="post">
             @csrf
             @method('delete')
-            <button onclick="return confirm('Yakin ingin mengahapusnya?')" type="submit" class="btn btn-rounded social-icon-btn btn-primary"><i class="mdi mdi-delete-outline"></i></button>
+            @if($borrowing->borrowing_status == "Dipinjam")
+                <button onclick="return confirm('Yakin ingin mengahapusnya?')" type="submit" class="btn btn-rounded social-icon-btn btn-primary" disabled><i class="mdi mdi-delete-outline"></i></button>
+            @else
+                <button onclick="return confirm('Yakin ingin mengahapusnya?')" type="submit" class="btn btn-rounded social-icon-btn btn-primary"><i class="mdi mdi-delete-outline"></i></button>    
+            @endif
             <input type="hidden" name="borrowing_id" value="{{$borrowing->borrowing_id}}">
         </form>
     </div>
@@ -27,29 +31,38 @@
         </div>
         <div class="form-group">
             <label for="borrowing_status">Status peminjaman</label>
-            <select class="form-control" name="borrowing_status" id="borrowing_status">
-                @if($borrowing->borrowing_status == "Dipinjam")
-                    <option selected value="Dipinjam">Dipinjam</option>
-                    <option value="Belum Diambil">Belum Diambil</option>
-                @elseif($borrowing->borrowing_status == "Belum Diambil")
-                    <option value="Dipinjam">Dipinjam</option>
-                    <option selected value="Belum Diambil">Belum Diambil</option>
+                @if($borrowing->status == "Not Confirm")
+                    <input type="text" class="form-control" name="borrowing_status" value="Harap konfirmasi terlebih dahulu" disabled>
+                    <input type="hidden" class="form-control" name="borrowing_status" value="Harap konfirmasi terlebih dahulu">
+                @else
+                    @if($borrowing->borrowing_status == "Belum Diambil")
+                        <select class="form-control" name="borrowing_status" id="borrowing_status">
+                            <option value="Dipinjam">Dipinjam</option>
+                            <option selected value="Belum Diambil">Belum Diambil</option>
+                        </select>
+                    @else
+                        <input type="text" class="form-control" value="{{$borrowing->borrowing_status}}" disabled>
+                        <input type="hidden" name="borrowing_status" value="{{$borrowing->borrowing_status}}" >
+                    @endif
                 @endif
-            </select>
         </div>
         <div class="form-group">
             <label for="status">Status konfirmasi</label>
-            <select class="form-control" name="status" id="status">
                 @if($borrowing->status == "Confirm")
-                    <option selected value="Confirm">Konfirmasi</option>
-                    <option value="Not Confirm">Belum terkonfirmasi</option>
+                    <input type="text" class="form-control" value="{{$borrowing->status}}" disabled>
+                    <input type="hidden" name="status" value="{{$borrowing->status}}">
                 @else
-                    <option value="Confirm">Konfirmasi</option>
-                    <option selected value="Not Confirm">Belum terkonfirmasi</option>
+                    <select class="form-control" name="status" id="status"> 
+                        <option value="Confirm">Konfirmasi</option>
+                        <option selected value="Not Confirm">Belum terkonfirmasi</option>
+                    </select>
                 @endif
-            </select>
         </div>
-        <button type="submit" class="btn btn-primary btn-flat">Save</button>
+        @if($borrowing->status == "Confirm" && $borrowing->borrowing_status == "Dikembalikan")
+            <button disabled type="submit" class="btn btn-primary btn-flat">Save</button>
+        @else
+            <button type="submit" class="btn btn-primary btn-flat">Save</button>
+        @endif
         <a href="{{route('borrowing')}}" class="btn btn-outline-dark btn-flat">Kembali</a>
     </form>
 </div>

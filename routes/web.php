@@ -33,7 +33,8 @@ Route::get('student/create', 'StudentController@create')->name('student.create')
 Route::get('student/json', 'StudentController@json')->name('student.json');
 Route::get('student/edit/{student}', 'StudentController@edit')->name('student.edit');
 Route::post('student', 'StudentController@store')->name('student.store');
-Route::post('student/excel', 'StudentController@excel')->name('student.excel');
+Route::post('student/importexcel', 'StudentController@importexcel')->name('student.importexcel');
+Route::post('student/exportexcel', 'StudentController@exportexcel')->name('student.exportexcel');
 Route::delete('student', 'StudentController@delete')->name('student.delete');
 Route::put('student/update', 'StudentController@update')->name('student.update');
 

@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="{{asset('assets/css/shared/style.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/demo_1/style.css')}}">
     <link rel="shortcut icon" href="{{asset('assets/images/web.png')}}" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/b-1.6.0/b-html5-1.6.0/r-2.2.3/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/r-2.2.3/datatables.min.css"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.0.3/css/buttons.dataTables.min.css">
   </head>
   <body class="header-fixed">
   <div class="preloader" id="preloader"></div>
@@ -108,7 +109,7 @@
                   <a href="{{route('room')}}">Ruangan</a>
               </li>
               <li>
-                  <a href="{{route('student')}}">Peminjam</a>
+                  <a href="{{route('student')}}">Siswa</a>
               </li>
             </ul>
           </li>
@@ -122,7 +123,7 @@
                 <a href="{{route('borrowing')}}">Peminjaman</a>
               </li>
               <li>
-                <a href="#">Pengembalian</a>
+                <a href="{{route('returning')}}">Pengembalian</a>
               </li>
             </ul>
           </li>
@@ -151,12 +152,47 @@
     <script src="{{asset('assets/js/charts/chartjs.addon.js')}}"></script>
     <script src="{{asset('assets/js/template.js')}}"></script>
     <script src="{{asset('assets/js/dashboard.js')}}"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/b-1.6.0/b-html5-1.6.0/r-2.2.3/datatables.min.js"></script>
+    <script src="https://js.pusher.com/5.0/pusher.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/r-2.2.3/datatables.min.js"></script>
     <script>
       const loading = document.getElementById("preloader");
       window.addEventListener("load", function () {
         loading.style.display = "none";
       });
+     
+        var BarData = {
+          labels: ["2013", "2014", "2014", "2015", "2016", "2017"],
+          datasets: [{
+            label: '# of Votes',
+            data: [10, 19, 3, 5, 12, 3],
+            backgroundColor: chartColors,
+            borderColor: chartColors,
+            borderWidth: 0
+          }]
+        };
+        var barChartCanvas = $("#chartjs-bar-chart").get(0).getContext("2d");
+        var barChart = new Chart(barChartCanvas, {
+          type: 'bar',
+          data: BarData,
+          options: {
+            legend: false
+          }
+        });
+
+         // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('6e49ca7b930fac5e00f3', {
+          cluster: 'ap1',
+          forceTLS: true
+        });
+
+        var channel = pusher.subscribe('my-channel');
+        channel.bind('my-event', function(data) {
+          alert(JSON.stringify(data));
+        });
+      
     </script>
     @stack('scripts')
   </body>
