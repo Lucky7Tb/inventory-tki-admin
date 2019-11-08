@@ -13,10 +13,10 @@ class StudentController extends Controller
         try {
             $dataStudent = Student::find($request->student_id);
             $dataStudent->player_id = $request->player_id;
-            $dataStudent->save();
+            $dataStudent->save();            
             return response()->json([
                 "message" => "Sukses",
-                "serve" => [],
+                "serve" => $request->student_id
             ], 200);
         } catch (Exception $e) {
             return response()->json([

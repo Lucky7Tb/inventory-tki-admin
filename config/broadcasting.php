@@ -41,6 +41,11 @@ return [
             ],
         ],
 
+        'options' => [
+            'cluster' => 'ap1',
+            'useTLS' => true
+        ],
+
         'redis' => [
             'driver' => 'redis',
             'connection' => 'default',
@@ -54,11 +59,6 @@ return [
             'driver' => 'null',
         ],
 
-    ],
-
-    'options' => [
-        'cluster' => 'ap1',
-        'useTLS' => true
     ],
 
 ];

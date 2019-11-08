@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="{{asset('assets/css/demo_1/style.css')}}">
     <link rel="shortcut icon" href="{{asset('assets/images/web.png')}}" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/r-2.2.3/datatables.min.css"/>
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.0.3/css/buttons.dataTables.min.css">
   </head>
   <body class="header-fixed">
   <div class="preloader" id="preloader"></div>
@@ -34,29 +33,11 @@
               </a>
               <div class="dropdown-menu navbar-dropdown dropdown-menu-right" aria-labelledby="notificationDropdown">
                 <div class="dropdown-header">
-                  <h6 class="dropdown-title">Notifications</h6>
-                  <p class="dropdown-title-text">You have 4 unread notification</p>
+                  <h6 class="dropdown-title">Notifikasi</h6>
+                  <p class="dropdown-title-text"></p>
                 </div>
                 <div class="dropdown-body">
-                  <div class="dropdown-list">
-                    <div class="icon-wrapper rounded-circle bg-inverse-primary text-primary">
-                      <i class="mdi mdi-alert"></i>
-                    </div>
-                    <div class="content-wrapper">
-                      <small class="name">Storage Full</small>
-                      <small class="content-text">Server storage almost full</small>
-                    </div>
-                  </div>
-                  <div class="dropdown-list">
-                    <div class="icon-wrapper rounded-circle bg-inverse-success text-success">
-                      <i class="mdi mdi-cloud-upload"></i>
-                    </div>
-                    <div class="content-wrapper">
-                      <small class="name">Upload Completed</small>
-                      <small class="content-text">3 Files uploded successfully</small>
-                    </div>
-                  </div>
-                  <div class="dropdown-list">
+                  <!-- <div class="dropdown-list">
                     <div class="icon-wrapper rounded-circle bg-inverse-warning text-warning">
                       <i class="mdi mdi-security"></i>
                     </div>
@@ -64,10 +45,10 @@
                       <small class="name">Authentication Required</small>
                       <small class="content-text">Please verify your password to continue using cloud services</small>
                     </div>
-                  </div>
+                  </div> -->
                 </div>
                 <div class="dropdown-footer">
-                  <a href="#">View All</a>
+                  <a href="{{route('borrowing')}}">View All</a>
                 </div>
               </div>
             </li>
@@ -94,7 +75,7 @@
             </a>
           </li>
           <li>
-            <a href="#sample-pages" data-toggle="collapse" aria-expanded="false">
+            <a href="#" data-toggle="collapse" aria-expanded="false">
               <span class="link-title">Management data</span>
               <i class="mdi mdi-archive link-icon"></i>
             </a>
@@ -114,7 +95,7 @@
             </ul>
           </li>
           <li>
-            <a href="#ui-elements" data-toggle="collapse" aria-expanded="false">
+            <a href="#" data-toggle="collapse" aria-expanded="false">
               <span class="link-title">Transaksi</span>
               <i class="mdi mdi-basket link-icon"></i>
             </a>
@@ -153,8 +134,8 @@
     <script src="{{asset('assets/js/template.js')}}"></script>
     <script src="{{asset('assets/js/dashboard.js')}}"></script>
     <script src="https://js.pusher.com/5.0/pusher.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/r-2.2.3/datatables.min.js"></script>
+    <script src="https://cdn.datatables.net/v/bs4/dt-1.10.20/r-2.2.3/datatables.min.js"></script>
+    <script src="{{asset('assets/js/script.js')}}"></script>
     <script>
       const loading = document.getElementById("preloader");
       window.addEventListener("load", function () {
@@ -179,20 +160,6 @@
             legend: false
           }
         });
-
-         // Enable pusher logging - don't include this in production
-        Pusher.logToConsole = true;
-
-        var pusher = new Pusher('6e49ca7b930fac5e00f3', {
-          cluster: 'ap1',
-          forceTLS: true
-        });
-
-        var channel = pusher.subscribe('my-channel');
-        channel.bind('my-event', function(data) {
-          alert(JSON.stringify(data));
-        });
-      
     </script>
     @stack('scripts')
   </body>

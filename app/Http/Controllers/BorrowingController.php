@@ -13,7 +13,7 @@ class BorrowingController extends Controller
 {
     public function json()
     {
-        $dataBorrowing = Borrowing::select('borrowing.*');
+        $dataBorrowing = Borrowing::select('borrowing.*')->orderBy('status', 'DESC');
         return DataTables::eloquent($dataBorrowing)->addColumn('aksi', function ($data) {
             return "<a href='/borrowing/edit/" . $data->borrowing_id . "' class='badge badge-primary'>Edit</a>";
         })->rawColumns(['aksi'])->toJson();
