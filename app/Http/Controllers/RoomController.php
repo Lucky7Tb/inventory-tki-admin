@@ -24,8 +24,7 @@ class RoomController extends Controller
 
     public function store(Request $request){
         $validatedData = $request->validate([
-            'room_name' => 'required|string|max:50',
-            'room_description' => 'string|max:100',
+            'room_name' => 'required|string|max:50'
         ]);
         $dataRoom = new Room;
         $dataRoom->room_name = $request->room_name;
@@ -40,8 +39,7 @@ class RoomController extends Controller
 
     public function update(Request $request){
         $validatedData = $request->validate([
-            'room_name' => 'required|string|max:50',
-            'room_description' => 'string|max:100',
+            'room_name' => 'required|string|max:50'
         ]);
         $dataRoom = Room::find($request->room_id);
         $dataRoom->room_name = $request->room_name;

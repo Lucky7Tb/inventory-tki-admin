@@ -12,7 +12,6 @@ $(document).ready(function(){
 	channel.bind('my-event', function(data) {
 		$notif = JSON.stringify(data.message);
 	 	if($notif === "Ada yang meminjam"){
-
 	 		$.ajax({
 				url: 'http://localhost:8000/api/v1/getuser',
 				type: 'GET',
@@ -26,22 +25,23 @@ $(document).ready(function(){
 						 let contentlist = document.createElement('div');
 						 let iconwrapper = document.createElement('div');
 						 let icon = document.createElement('i');
-						 let icon2 = document.createElement('i');
 						 let smallName =  document.createElement('small');
 						 let smallDesc = document.createElement('small');
 						 let descnotifikasi = document.querySelector('.dropdown-title-text');
+						 let notification = document.querySelector('.nav-link');
+						 let notificationindicator = document.createElement('span');
+
+						 notificationindicator.className = "notification-indicator notification-indicator-primary notification-indicator-ripple"
 
 						 descnotifikasi.innerText = `Ada ${notconfirmborrower} peminjam yang belum dikonfirmasi`;
 
 						 contentlist.className = "dropdown-list";
 
 						 iconwrapper.className = "icon-wrapper rounded-circle bg-inverse-warning text-warning";
-						 icon.className = "mdi mdi-security";
-						 icon2.className = "mdi mdi-security";
+						 icon.className = "mdi mdi-alert";
 
 
 						 iconwrapper.appendChild(icon);
-						 iconwrapper.appendChild(icon2);
 
 						 contentwrapper.className = 'content-wrapper';
 
@@ -50,7 +50,7 @@ $(document).ready(function(){
 
 						 smallDesc.className = "content-text";
 						 smallDesc.innerText = `Meminjam ${val.item_id.item_name} : ${val.item_ammount}`;
-
+						 
 						 contentwrapper.appendChild(smallName);
 						 contentwrapper.appendChild(smallDesc);
 
@@ -59,7 +59,11 @@ $(document).ready(function(){
 
 						 contentbody.appendChild(contentlist);
 
-
+						 if(response.length > 0){
+							notification.appendChild(notificationindicator);
+						 }else{
+							notification.removeChild(notificationindicator);
+						 }
 					});
 				}
 			});

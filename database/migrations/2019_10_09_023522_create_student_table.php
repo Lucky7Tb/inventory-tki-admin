@@ -19,6 +19,7 @@ class CreateStudentTable extends Migration
             $table->string('student_nis', 80);
             $table->string('student_password', 10);
             $table->string('student_class', 50);
+            $table->string('player_id', 255)->nullable();
             $table->timestamps();
         });
     }

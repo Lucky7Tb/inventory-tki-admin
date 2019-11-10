@@ -22,7 +22,7 @@ class InventorySeeder extends Seeder
 
         DB::table('users')->insert([
             'name' => 'admin',
-            'email' => 'admim@mail.com',
+            'email' => 'admin@mail.com',
             'level' => 1,
             'password' => bcrypt('12345678'),
             'created_at' => \Carbon\Carbon::now(),

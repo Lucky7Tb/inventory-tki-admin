@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>  @yield('title')</title>
+    <title>@yield('title')</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,21 +31,12 @@
               <a class="nav-link" href="#" id="notificationDropdown" data-toggle="dropdown" aria-expanded="false">
                 <i class="mdi mdi-bell-outline mdi-1x"></i>
               </a>
-              <div class="dropdown-menu navbar-dropdown dropdown-menu-right" aria-labelledby="notificationDropdown">
+              <div class="dropdown-menu navbar-dropdown dropdown-menu-right"  id="notificationDropdown" aria-labelledby="notificationDropdown">
                 <div class="dropdown-header">
                   <h6 class="dropdown-title">Notifikasi</h6>
                   <p class="dropdown-title-text"></p>
                 </div>
                 <div class="dropdown-body">
-                  <!-- <div class="dropdown-list">
-                    <div class="icon-wrapper rounded-circle bg-inverse-warning text-warning">
-                      <i class="mdi mdi-security"></i>
-                    </div>
-                    <div class="content-wrapper">
-                      <small class="name">Authentication Required</small>
-                      <small class="content-text">Please verify your password to continue using cloud services</small>
-                    </div>
-                  </div> -->
                 </div>
                 <div class="dropdown-footer">
                   <a href="{{route('borrowing')}}">View All</a>
@@ -75,11 +66,11 @@
             </a>
           </li>
           <li>
-            <a href="#" data-toggle="collapse" aria-expanded="false">
+            <a href="#management" data-toggle="collapse" aria-expanded="false">
               <span class="link-title">Management data</span>
               <i class="mdi mdi-archive link-icon"></i>
             </a>
-            <ul class="collapse navigation-submenu" id="sample-pages">
+            <ul class="collapse navigation-submenu" id="management">
               <li>
                   <a href="{{route('item')}}">Barang</a>
               </li>
@@ -95,11 +86,11 @@
             </ul>
           </li>
           <li>
-            <a href="#" data-toggle="collapse" aria-expanded="false">
+            <a href="#transaksi" data-toggle="collapse" aria-expanded="false">
               <span class="link-title">Transaksi</span>
               <i class="mdi mdi-basket link-icon"></i>
             </a>
-            <ul class="collapse navigation-submenu" id="ui-elements">
+            <ul class="collapse navigation-submenu" id="transaksi">
               <li>
                 <a href="{{route('borrowing')}}">Peminjaman</a>
               </li>
@@ -132,7 +123,6 @@
     <script src="{{asset('assets/vendors/chartjs/Chart.min.js')}}"></script>
     <script src="{{asset('assets/js/charts/chartjs.addon.js')}}"></script>
     <script src="{{asset('assets/js/template.js')}}"></script>
-    <script src="{{asset('assets/js/dashboard.js')}}"></script>
     <script src="https://js.pusher.com/5.0/pusher.min.js"></script>
     <script src="https://cdn.datatables.net/v/bs4/dt-1.10.20/r-2.2.3/datatables.min.js"></script>
     <script src="{{asset('assets/js/script.js')}}"></script>
@@ -141,25 +131,6 @@
       window.addEventListener("load", function () {
         loading.style.display = "none";
       });
-     
-        var BarData = {
-          labels: ["2013", "2014", "2014", "2015", "2016", "2017"],
-          datasets: [{
-            label: '# of Votes',
-            data: [10, 19, 3, 5, 12, 3],
-            backgroundColor: chartColors,
-            borderColor: chartColors,
-            borderWidth: 0
-          }]
-        };
-        var barChartCanvas = $("#chartjs-bar-chart").get(0).getContext("2d");
-        var barChart = new Chart(barChartCanvas, {
-          type: 'bar',
-          data: BarData,
-          options: {
-            legend: false
-          }
-        });
     </script>
     @stack('scripts')
   </body>
