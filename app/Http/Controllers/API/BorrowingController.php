@@ -55,4 +55,38 @@ class BorrowingController extends Controller
             ], 500);
         }
     }
+
+    public function getStudentData(Request $request){
+        try {
+            $dataBorrowing = Borrowing::where('student_id', $request->student_id)->get();
+            $data['borrowing'] = $dataBorrowing->where('status', 'Confirm')->count();
+            $data['notreturn'] = $dataBorrowing->where('status', 'Confirm')->where('borrowing_status', 'Dipinjam')->count();
+            $data['return'] = $dataBorrowing->where('status', 'Confirm')->where('borrowing_status', 'Dikembalikan')->count();
+            $data['nottaken'] = $dataBorrowing->where('status', 'Confirm')->where('borrowing_status', 'Belum Diambil')->count();
+            return response()->json([
+                "message" => "Sukses",
+                "serve" => $data
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                "message" => "Terjadi kesalahan pada server",
+                "serve" => []
+            ], 500);
+        }
+    } 
+
+    public function getBorrowData(Request $request){
+        try {
+            $dataBorrowing = Borrowing::where('student_id', $request->student_id)->where('status', 'Confirm')->where('borrowing_status', 'Dipinjam')->orWhere('borrowing_status', 'Belum Diambil')->get();
+            return response()->json([
+                "message" => "Sukses",
+                "serve" => $dataBorrowing
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                "message" => "Terjadi kesalahan pada server",
+                "serve" => []
+            ], 500);
+        }
+    }
 }

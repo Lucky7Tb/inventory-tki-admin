@@ -17,10 +17,11 @@
             <div class="button"></div>
             <thead>
                 <tr>
+                    <th>Id</th>
                     <th>Peminjam</th>
-                    <th>Kelas</th>
                     <th>Barang</th>
                     <th>Jumlah</th>
+                    <th>Tanggal pinjam</th>
                     <th>Tanggal pengembalian</th>
                     <th>Status peminjaman</th>
                     <th>Konfirmasi</th>
@@ -42,10 +43,11 @@
                 responsive: true,
                 ajax: "{{route('borrowing.json')}}",
                 columns: [
+                    {data:"borrowing_id", name:"borrowing_id"},
                     {data:"student_id.student_name", name:"student_id.student_name"},
-                    {data:"student_id.student_class", name:"student_id.student_class"},
                     {data:"item_id.item_name", name:"item_id.item_name"},
                     {data:"item_ammount", name:"item_ammount"},
+                    {data:"created_at", name:"created_at"},
                     {data:"borrowing_date_return", name:"borrowing_date_return"},
                     {data:"borrowing_status", name:"borrowing_status"},
                     {data:"status", name:"status"},

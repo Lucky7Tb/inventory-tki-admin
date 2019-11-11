@@ -73,7 +73,7 @@ class BorrowingController extends Controller
             $dataStudent = Student::find($dataBorrowing->student_id['student_id'])->first();
             $userId = $dataStudent['player_id'];
             OneSignal::sendNotificationToUser(
-                "Barang sudah siap diambil id: $dataBorrowing->borrowing_id",
+                "Barang sudah siap diambil kode: $dataBorrowing->borrowing_id",
                 $userId,
                 $url = null,
                 $data = null,
@@ -91,13 +91,23 @@ class BorrowingController extends Controller
     public function delete(Request $request)
     {
         $dataBorrowing = Borrowing::find($request->borrowing_id);
-        if($dataBorrowing->borrowing_status == "Belum Diambil"){
+        if($dataBorrowing->borrowing_status == "Belum Diambil" && $dataBorrowing->status == "Confirm"){
             $dataItem = Item::find($dataBorrowing->item_id['item_id']);
             $dataItem->item_ammount = $dataItem->item_ammount + $dataBorrowing->item_ammount;
             $dataItem->save();
             $dataBorrowing->delete();
         }else{
             $dataBorrowing->delete();
+            $dataStudent = Student::find($dataBorrowing->student_id['student_id'])->first();
+            $userId = $dataStudent['player_id'];
+            OneSignal::sendNotificationToUser(
+                "Maaf barang anda tidak tersedia",
+                $userId,
+                $url = null,
+                $data = null,
+                $buttons = null,
+                $schedule = null
+            );
         }
         return redirect()->route('borrowing')->with('success', 'Data berhasil didelete');
     }
