@@ -28,5 +28,7 @@ Route::group(['prefix' => 'v1'], function(){
 	Route::get('getuser', 'API\BorrowingController@getUser');
 
 	Route::post('student', 'API\StudentController@savePlayerId');
+	Route::post('studentchangepassword', 'API\StudentController@changePassword');
+
 
 });

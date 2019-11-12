@@ -13,7 +13,7 @@
 </head>
 <body>
     <div class="authentication-theme auth-style_1" style="margin-top:-100px">
-    <img src="{{asset('assets/images/LOGO.png')}}" alt="Logo" width="350" class="d-block mx-auto">
+    <img src="{{asset('assets/images/inventorylogo.png')}}" alt="Logo" width="200" class="d-block mx-auto">
       <div class="row">
         <div class="col-lg-5 col-md-7 col-sm-9 col-11 mx-auto">
           <div class="grid">
