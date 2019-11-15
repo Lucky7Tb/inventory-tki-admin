@@ -77,7 +77,7 @@ class BorrowingController extends Controller
 
     public function getBorrowData(Request $request){
         try {
-            $dataBorrowing = Borrowing::where('student_id', $request->student_id)->where('status', 'Confirm')->where('borrowing_status', 'Dipinjam')->orWhere('borrowing_status', 'Belum Diambil')->get();
+            $dataBorrowing = Borrowing::where('student_id', $request->student_id)->where('status', 'Confirm')->whereIn('borrowing_status', ['Belum Diambil', 'Dipinjam'])->get();
             return response()->json([
                 "message" => "Sukses",
                 "serve" => $dataBorrowing

@@ -17,8 +17,4 @@ class ItemCategory extends Model
             $model->item_category_id = Helper::randString();
         });
     }
-
-    // public function item(){
-    //     return $this->hasOne('App\Item', 'item_category_id', 'item_category_id');
-    // }
 }

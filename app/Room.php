@@ -17,8 +17,4 @@ class Room extends Model
             $model->room_id = Helper::randString();
         });
     }
-
-    public function item(){
-        return $this->hasOne('App\Item', 'room_id', 'room_id');
-    }
 }

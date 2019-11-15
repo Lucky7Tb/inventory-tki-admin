@@ -99,7 +99,7 @@ class BorrowingController extends Controller
             $dataBorrowing->delete();
         }else{
             $dataBorrowing->delete();
-            $dataStudent = Student::find($dataBorrowing->student_id['student_id'])->first();
+            $dataStudent = Student::find($dataBorrowing->student_id['student_id']);
             $userId = $dataStudent['player_id'];
             OneSignal::sendNotificationToUser(
                 "Maaf barang anda tidak tersedia",
