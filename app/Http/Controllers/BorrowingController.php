@@ -71,8 +71,7 @@ class BorrowingController extends Controller
             $dataItem->save();
 
             $dataStudent = Student::find($dataBorrowing->student_id['student_id']);
-            $userId = $dataStudent->player_id;
-            // dd($userId);
+            $userId = $dataStudent['player_id'];
             OneSignal::sendNotificationToUser(
                 "Barang sudah siap diambil kode: $dataBorrowing->borrowing_id",
                 $userId,
