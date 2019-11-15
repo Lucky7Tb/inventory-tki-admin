@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{asset('assets/vendors/iconfonts/mdi/css/materialdesignicons.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/shared/style.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/demo_1/style.css')}}">
-    <link rel="shortcut icon" href="{{asset('assets/images/web.png')}}" />
+    <link rel="shortcut icon" href="{{asset('assets/images/favicon.png')}}" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/r-2.2.3/datatables.min.css"/>
   </head>
   <body class="header-fixed">
@@ -17,8 +17,8 @@
     <nav class="t-header">
       <div class="t-header-brand-wrapper">
         <a href="{{url('/')}}">
-          <img class="logo mr-4" src="{{asset('assets/images/web.png')}}" style="width:90px" alt="Logo">
-          <img class="logo-mini" src="{{asset('assets/images/web.png')}}"  style="width:90px" alt="Logo">
+          <img class="logo mr-4" src="{{asset('assets/images/inventorylogo.png')}}" style="width:90px" alt="Logo">
+          <img class="logo-mini" src="{{asset('assets/images/inventorylogo.png')}}"  style="width:90px" alt="Logo">
         </a>
       </div>
       <div class="t-header-content-wrapper">

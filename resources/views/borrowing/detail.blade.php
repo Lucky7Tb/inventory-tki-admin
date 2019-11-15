@@ -12,9 +12,9 @@
             @if($borrowing->borrowing_status == "Dipinjam")
                 <button onclick="return confirm('Yakin ingin mengahapusnya?')" type="submit" class="btn btn-rounded social-icon-btn btn-primary" disabled><i class="mdi mdi-delete-outline"></i></button>
             @else
-                <button onclick="return confirm('Yakin ingin mengahapusnya?')" type="submit" class="btn btn-rounded social-icon-btn btn-primary"><i class="mdi mdi-delete-outline"></i></button>    
+                <button onclick="return confirm('Yakin ingin mengahapusnya?')" type="submit" class="btn btn-rounded social-icon-btn btn-primary"><i class="mdi mdi-delete-outline"></i></button>
+                <input type="hidden" name="borrowing_id" value="{{$borrowing->borrowing_id}}">    
             @endif
-            <input type="hidden" name="borrowing_id" value="{{$borrowing->borrowing_id}}">
         </form>
     </div>
     <form action="{{route('borrowing.update')}}" method="post">

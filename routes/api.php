@@ -23,8 +23,12 @@ Route::group(['prefix' => 'v1'], function(){
 	Route::get('item', 'API\ItemController@index');
 
 	Route::post('borrow', 'API\BorrowingController@borrowItem');
+	Route::post('getstudentdata', 'API\BorrowingController@getStudentData');
+	Route::post('getborrowdata', 'API\BorrowingController@getBorrowData');
 	Route::get('getuser', 'API\BorrowingController@getUser');
 
 	Route::post('student', 'API\StudentController@savePlayerId');
+	Route::post('studentchangepassword', 'API\StudentController@changePassword');
+
 
 });

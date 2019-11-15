@@ -25,4 +25,22 @@ class StudentController extends Controller
             ], 500);
         }
     }
+
+    public function changePassword(Request $request){
+        try {
+            $dataStudent = Student::find($request->student_id);
+            $newPassword = $request->student_password;
+            $dataStudent->student_password = $newPassword;
+            $dataStudent->save();
+            return response()->json([
+                "message" => "Password anda terlah berhasil diubah",
+                "serve" => []
+            ], 200);
+        } catch (Exception $e) {
+             return response()->json([
+                "message" => "Terjadi kesalahan pada server",
+                "serve" => []
+            ], 500);
+        }
+    }
 }
