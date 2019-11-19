@@ -7,9 +7,9 @@ $(document).ready(function(){
 			dataType: 'json',
 			success: function(response){
 				let notconfirmborrower = response.serve.length;
+				let contentbody =  document.querySelector('.dropdown-body');
+				contentbody.innerHTML = '';
 				$.each(response.serve, function(index, val) {
-					 console.log(val);
-					 let contentbody =  document.querySelector('.dropdown-body');
 					 let contentwrapper =  document.createElement('div');
 					 let contentlist = document.createElement('div');
 					 let iconwrapper = document.createElement('div');
@@ -29,7 +29,6 @@ $(document).ready(function(){
 					 iconwrapper.className = "icon-wrapper rounded-circle bg-inverse-warning text-warning";
 					 icon.className = "mdi mdi-alert";
 
-
 					 iconwrapper.appendChild(icon);
 
 					 contentwrapper.className = 'content-wrapper';
@@ -47,8 +46,7 @@ $(document).ready(function(){
 					 contentlist.appendChild(contentwrapper);
 
 					 contentbody.appendChild(contentlist);
-
-					 if(response.length > 0){
+					 if(notconfirmborrower > 0){
 						notification.appendChild(notificationindicator);
 					 }else{
 						notification.removeChild(notificationindicator);
@@ -68,8 +66,7 @@ $(document).ready(function(){
 	let channel = pusher.subscribe('my-channel');
 
 	channel.bind('my-event', function(data) {
-		let notif = JSON.stringify(data.message);
-	 	if(notif === "Ada yang meminjam"){
+	 	if(data.message == "Ada yang meminjam"){
 			getUserBorrowing();
 	 	}
 	})

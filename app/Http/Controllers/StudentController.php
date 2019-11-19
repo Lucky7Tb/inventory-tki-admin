@@ -28,7 +28,7 @@ class StudentController extends Controller
     public function store(Request $request){
         $validatedData = $request->validate([
             'student_name' => 'required|string',
-            'student_nis' => 'required|string|max:8',
+            'student_nis' => 'required|string|max:15',
             'student_class' => 'required|string|max:50',
         ]);
         $dataStudent = new Student;
@@ -46,7 +46,7 @@ class StudentController extends Controller
     public function update(Request $request){
         $validatedData = $request->validate([
             'student_name' => 'required|string',
-            'student_nis' => 'required|string|max:8',
+            'student_nis' => 'required|string|max:15',
             'student_class' => 'required|string|max:50',
         ]);
         $dataStudent = Student::find($request->student_id);
