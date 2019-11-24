@@ -2,7 +2,7 @@ $(document).ready(function(){
 
 	function getUserBorrowing(){
 		$.ajax({
-			url: 'http://localhost:8000/api/v1/getuser',
+			url: 'https://inventorytki.000webhostapp.com/api/v1/getuser',
 			type: 'GET',
 			dataType: 'json',
 			success: function(response){
