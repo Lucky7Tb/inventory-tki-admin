@@ -51,6 +51,7 @@ Route::delete('borrowing', 'BorrowingController@delete')->name('borrowing.delete
 Route::get('returning', 'ReturningController@index')->name('returning')->middleware(['auth']);
 Route::get('returning/json', 'ReturningController@json')->name('returning.json')->middleware(['auth']);
 Route::get('returning/edit/{borrowing}', 'ReturningController@edit')->name('returning.edit')->middleware(['auth']);
+Route::get('returning/warning/{borrowing}', 'ReturningController@warning')->name('returning.warning')->middleware(['auth']);
 Route::put('returning', 'ReturningController@update')->name('returning.update')->middleware(['auth']);
 
 

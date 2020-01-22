@@ -1,76 +1,95 @@
-$(document).ready(function(){
+$(document).ready(function () {
 
-	function getUserBorrowing(){
+	function getUserBorrowing() {
 		$.ajax({
 			url: 'https://inventorytki.000webhostapp.com/api/v1/getuser',
 			type: 'GET',
 			dataType: 'json',
-			success: function(response){
+			success: function (response) {
 				let notconfirmborrower = response.serve.length;
-				let contentbody =  document.querySelector('.dropdown-body');
+				let contentbody = document.querySelector('.dropdown-body');
 				contentbody.innerHTML = '';
-				$.each(response.serve, function(index, val) {
-					 let contentwrapper =  document.createElement('div');
-					 let contentlist = document.createElement('div');
-					 let iconwrapper = document.createElement('div');
-					 let icon = document.createElement('i');
-					 let smallName =  document.createElement('small');
-					 let smallDesc = document.createElement('small');
-					 let descnotifikasi = document.querySelector('.dropdown-title-text');
-					 let notification = document.querySelector('.nav-link');
-					 let notificationindicator = document.createElement('span');
+				$.each(response.serve, function (index, val) {
+					let contentwrapper = document.createElement('div');
+					let contentlist = document.createElement('div');
+					let iconwrapper = document.createElement('div');
+					let icon = document.createElement('i');
+					let smallName = document.createElement('small');
+					let smallDesc = document.createElement('small');
+					let descnotifikasi = document.querySelector('.dropdown-title-text');
+					let notification = document.querySelector('.nav-link');
+					let notificationindicator = document.createElement('span');
 
-					 notificationindicator.className = "notification-indicator notification-indicator-primary notification-indicator-ripple"
+					notificationindicator.className = "notification-indicator notification-indicator-primary notification-indicator-ripple"
 
-					 descnotifikasi.innerText = `Ada ${notconfirmborrower} peminjam yang belum dikonfirmasi`;
+					descnotifikasi.innerText = `Ada ${notconfirmborrower} peminjam yang belum dikonfirmasi`;
 
-					 contentlist.className = "dropdown-list";
+					contentlist.className = "dropdown-list";
 
-					 iconwrapper.className = "icon-wrapper rounded-circle bg-inverse-warning text-warning";
-					 icon.className = "mdi mdi-alert";
+					iconwrapper.className = "icon-wrapper rounded-circle bg-inverse-warning text-warning";
+					icon.className = "mdi mdi-alert";
 
-					 iconwrapper.appendChild(icon);
+					iconwrapper.appendChild(icon);
 
-					 contentwrapper.className = 'content-wrapper';
+					contentwrapper.className = 'content-wrapper';
 
-					 smallName.className = "name";
-					 smallName.innerText = val.student_id.student_name;
+					smallName.className = "name";
+					smallName.innerText = val.student_id.student_name;
 
-					 smallDesc.className = "content-text";
-					 smallDesc.innerText = `Meminjam ${val.item_id.item_name} : ${val.item_ammount}`;
+					smallDesc.className = "content-text";
+					smallDesc.innerText = `Meminjam ${val.item_id.item_name} : ${val.item_ammount}`;
 
-					 contentwrapper.appendChild(smallName);
-					 contentwrapper.appendChild(smallDesc);
+					contentwrapper.appendChild(smallName);
+					contentwrapper.appendChild(smallDesc);
 
-					 contentlist.appendChild(iconwrapper);
-					 contentlist.appendChild(contentwrapper);
+					contentlist.appendChild(iconwrapper);
+					contentlist.appendChild(contentwrapper);
 
-					 contentbody.appendChild(contentlist);
-					 if(notconfirmborrower > 0){
+					contentbody.appendChild(contentlist);
+					if (notconfirmborrower > 0) {
 						notification.appendChild(notificationindicator);
-					 }else{
+					} else {
 						notification.removeChild(notificationindicator);
-					 }
+					}
 				});
 			}
 		});
 	}
 
+	function sendNotificationUser() {
+		const date = new Date;
+		const hour = date.getHours();
+		if (hour === 17) {
+			$.ajax({
+				url: 'https://inventorytki.000webhostapp.com/api/v1/sendnotif',
+				type: 'GET',
+				success: function (response) {
+					console.log(response)
+				}
+			})
+		} else {
+			console.log("Bukan jam 17")
+		}
+	}
+
 	Pusher.logToConsole = true;
 
 	let pusher = new Pusher('6e49ca7b930fac5e00f3', {
-	  cluster: 'ap1',
-	  forceTLS: true
+		cluster: 'ap1',
+		forceTLS: true
 	});
 
 	let channel = pusher.subscribe('my-channel');
 
-	channel.bind('my-event', function(data) {
-	 	if(data.message == "Ada yang meminjam"){
+	channel.bind('my-event', function (data) {
+		if (data.message == "Ada yang meminjam") {
 			getUserBorrowing();
-	 	}
+		}
 	})
 
+	setInterval(sendNotificationUser, 3600000);
+
 	getUserBorrowing();
+	sendNotificationUser();
 
 })

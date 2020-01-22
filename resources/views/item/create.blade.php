@@ -13,7 +13,7 @@
             </button>
         </div>
     @endif
-    <form action="{{route('item.store')}}" method="post">
+    <form action="{{route('item.store')}}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <label for="item_name">Nama barang</label>
@@ -51,6 +51,13 @@
                     <option value="{{$room->room_id}}">{{$room->room_name}}</option>
                 @endforeach
             </select>
+        </div>
+        <div class="form-group">
+            <label for="customFile">Pilih gambar item</label>
+            <input type="file" name="imageItem" class="form-control-file @error('imageItem') is-invalid @enderror" id="customFile">
+            @error('file')
+                <small id="file_help" class="form-text text-danger">{{ $message }}</small>
+            @enderror
         </div>
         <button type="submit" class="btn btn-primary btn-flat">Save</button>
         <a href="{{route('item')}}" class="btn btn-outline-dark btn-flat">Cancel</a>

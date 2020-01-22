@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Student;
+use App\Borrowing;
+use OneSignal;
 
 class StudentController extends Controller
 {
@@ -42,5 +44,26 @@ class StudentController extends Controller
                 "serve" => []
             ], 500);
         }
+    }
+
+    public function sendNotif(Request $request){
+        $dataBorrowing = Borrowing::where('borrowing_status', 'Dipinjam')->get();
+        foreach ($dataBorrowing as $data) {
+            $dataStudent = Student::where('student_id', $data->student_id['student_id'])->get();
+            foreach ($dataStudent as $student) {
+                OneSignal::sendNotificationToUser(
+                    "Harap segera mengembalikan barang : " . $data->item_id['item_name' ]. " jika tidak ingin terkena denda!",
+                    $student['player_id'],
+                    $url = null,
+                    $data = null,
+                    $buttons = null,
+                    $schedule = null
+                );
+            }
+        }
+        return response()->json([
+            "message" => $dataBorrowing,
+            "serve" => []
+        ], 200);
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Item;
 use App\Room;
 use App\ItemCategory;
+use App\Helpers\Helper;
 use DataTables;
 class ItemController extends Controller
 {
@@ -30,14 +31,28 @@ class ItemController extends Controller
         $validatedData = $request->validate([
             'item_name' => 'required|string|max:50',
             'item_ammount' => 'required|numeric|max:100',
+            'imageItem' => 'image|mimes:jpg,png,jpeg|max:1000'
         ]);
+
+        if($request->file()){
+            $image = $request->file('imageItem');
+            $nameImage = Helper::randString().'.'.$image->getClientOriginalExtension();
+            $moveDestinationFolder = public_path('/assets/images/item');
+        }else{
+            $nameImage ='notfound.png';
+        }
         $dataItem = new Item;
         $dataItem->item_name = $request->item_name;
         $dataItem->item_conditions = $request->item_conditions;
         $dataItem->item_ammount = $request->item_ammount;
-        $dataItem->room_id = $request->room_id;        
-        $dataItem->item_category_id = $request->item_category_id;        
+        $dataItem->item_url = url('/').'/assets/images/item/'.$nameImage;
+        $dataItem->room_id = $request->room_id;
+        $dataItem->item_category_id = $request->item_category_id;
         $dataItem->save();
+        
+        if($request->file()){
+           $image->move($moveDestinationFolder, $nameImage);
+        }
         return redirect()->route('item.create')->with('success', 'Data berhasil dimasukan');
     }
 
@@ -56,8 +71,8 @@ class ItemController extends Controller
         $dataItem->item_name = $request->item_name;
         $dataItem->item_conditions = $request->item_conditions;
         $dataItem->item_ammount = $request->item_ammount;
-        $dataItem->room_id = $request->room_id;        
-        $dataItem->item_category_id = $request->item_category_id;   
+        $dataItem->room_id = $request->room_id;
+        $dataItem->item_category_id = $request->item_category_id;
         $dataItem->save();
         return redirect()->route('item')->with('success', 'Data berhasil diupdate');
     }

@@ -18,6 +18,7 @@ class CreateItemTable extends Migration
             $table->string('item_name', 50);
             $table->enum('item_conditions', ['Baik', 'Tidak Baik']);
             $table->integer('item_ammount')->unsigned();
+            $table->text('item_url');
             $table->string('room_id', 6)->index();
             $table->string('item_category_id', 6)->index();
             $table->timestamps();

@@ -7,12 +7,14 @@ use App\Borrowing;
 use App\Item;
 use App\Student;
 use DataTables;
+use OneSignal;
+
 class ReturningController extends Controller
 {
     public function json(){
-        $dataBorrowing = Borrowing::select('borrowing_id', 'student_id', 'item_id', 'borrowing_status')->where('borrowing_status', 'Dipinjam')->where('status', 'Confirm');
+        $dataBorrowing = Borrowing::select('borrowing_id', 'student_id', 'item_id', 'borrowing_status', 'borrowing_date_return')->where('borrowing_status', 'Dipinjam')->where('status', 'Confirm');
         return DataTables::eloquent($dataBorrowing)->addColumn('aksi',function($data){
-            return "<a href='/returning/edit/".$data->borrowing_id."' class='badge badge-primary'>Edit</a>";
+            return "<a href='/returning/edit/".$data->borrowing_id."' class='badge badge-primary'>Edit</a><a href='/returning/warning/".$data->borrowing_id."' class='badge badge-danger'>Peringati</a>";
         })->rawColumns(['aksi'])->toJson();
     }
 
@@ -35,13 +37,19 @@ class ReturningController extends Controller
     }
 
 
-    // public function delete(Request $request){
-    //     $dataBorrowing = Borrowing::find($request->borrowing_id);
-    //     $dataItem = Item::find($dataBorrowing->item_id['item_id']);
-    //     $dataItem->item_ammount = $dataItem->item_ammount + $dataBorrowing->item_ammount;
-    //     $dataItem->save();
-    //     $dataBorrowing->delete();
-    //     return redirect()->route('returning')->with('success', 'Data berhasil didelete');
-    // }
+    public function warning(Request $request){
+        $dataBorrowing = Borrowing::find($request->borrowing);
+        $dataStudent = Student::find($dataBorrowing->student_id['student_id']);
+        $userId = $dataStudent['player_id'];
+        OneSignal::sendNotificationToUser(
+            "Harap segera mengembalikan barang : " . $dataBorrowing->item_id['item_name' ]. " jika tidak ingin terkena denda!",
+            $userId,
+            $url = null,
+            $data = null,
+            $buttons = null,
+            $schedule = null
+        );
+        return redirect()->route('returning');
+    }
 
 }

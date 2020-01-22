@@ -22,6 +22,8 @@ Route::group(['prefix' => 'v1'], function(){
 
 	Route::get('item', 'API\ItemController@index');
 
+	Route::get('sendnotif', 'API\StudentController@sendNotif');
+
 	Route::post('borrow', 'API\BorrowingController@borrowItem');
 	Route::post('getstudentdata', 'API\BorrowingController@getStudentData');
 	Route::post('getborrowdata', 'API\BorrowingController@getBorrowData');

@@ -20,6 +20,7 @@
                     <th>Nama peminjam</th>
                     <th>Barang</th>
                     <th>Status</th>
+                    <th>Tanggal pengembalian</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -42,6 +43,7 @@
                     {data:"student_id.student_name", name:"student_id.student_name"},
                     {data:"item_id.item_name", name:"item_id.item_name"},
                     {data:"borrowing_status", name:"borrowing_status"},        
+                    {data:"borrowing_date_return", name:"borrowing_date_return"},       
                     {data:"aksi", name:"aksi", orderable: false, searchable: false},
                 ],
             });
